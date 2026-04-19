@@ -11,10 +11,6 @@
 <header class="bg-linear-to-b from-black/80">
 	<nav class="flex items-center justify-between px-8">
 		<a href="/" class="font-heading font-bold text-text-light">SHOCK MARKET</a>
-
-		<ul class="flex p-2">
-			{@render entry('/my-stocks', 'My Stocks')}
-		</ul>
 	</nav>
 </header>
 

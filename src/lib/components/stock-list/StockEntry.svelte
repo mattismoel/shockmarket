@@ -142,7 +142,7 @@
 		<a
 			aria-disabled={disabled}
 			class="buy-button flex w-fit bg-foreground/10 px-8 py-2 transition-colors group-hover:not-aria-disabled:bg-foreground group-hover:not-aria-disabled:text-background"
-			href="/stock/{stock.name}"
+			href="/"
 		>
 			{#if hovered && disabled}
 				Buy ({secondsLeft}s)

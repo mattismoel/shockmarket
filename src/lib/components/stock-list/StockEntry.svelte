@@ -42,7 +42,7 @@
 	let disabledTimeout = $state<number>();
 	let disabledInterval = $state<number>();
 
-	let secondsLeft = $state<number>(15);
+	let secondsLeft = $state<number>(FORCE_WAIT_DURATION_SECS);
 
 	let ethicsRating = $derived(calculateEthicsRating(stock));
 

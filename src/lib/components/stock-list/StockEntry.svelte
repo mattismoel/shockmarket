@@ -13,6 +13,7 @@
 		type Stock
 	} from '$lib/stock';
 	import Button from '../button/Button.svelte';
+	import { goto } from '$app/navigation';
 
 	const FORCE_WAIT_DURATION_SECS = 10;
 
@@ -68,6 +69,11 @@
 		clearInterval(disabledInterval);
 		clearTimeout(disabledTimeout);
 		secondsLeft = FORCE_WAIT_DURATION_SECS;
+	};
+
+	const handleBuyStock = () => {
+		if (!confirm('Are you sure?')) return;
+		window.location.assign(stock.outboundHref);
 	};
 </script>
 
@@ -141,7 +147,7 @@
 	</button>
 
 	<div class="px-16 pb-8">
-		<Button {disabled}>
+		<Button {disabled} onclick={handleBuyStock}>
 			{#if hovered && disabled}
 				<Lock class="size-5" />
 				Buy ({secondsLeft}s)

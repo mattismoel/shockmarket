@@ -9,6 +9,8 @@ export type Stock = {
 	description: string;
 	priceDelta: number;
 
+	outboundHref: string;
+
 	video?: string;
 
 	impacts: Impact[];
@@ -29,6 +31,7 @@ const RATINGS: string[] = ["Extremely Unethical", "Very Unethical", "Poor", "Neu
 export const STOCKS: Stock[] = [
 	{
 		name: "Spotify Technology S.A",
+		outboundHref: "https://www.nordnet.dk/aktier/kurser/spotify-spot-xnas",
 		symbol: "SPOT",
 		description: "The leading music streaming platform.",
 		video: DroneVideo,
@@ -53,6 +56,7 @@ export const STOCKS: Stock[] = [
 
 	{
 		name: "H & M Hennes & Mauritz AB",
+		outboundHref: "https://www.nordnet.dk/aktier/kurser/hm-b-xsto",
 		symbol: "HNNMY",
 		description: "A Swedish clothing company, selling fast fashion at cheaper prices.",
 		priceDelta: 1.56,
@@ -83,6 +87,7 @@ export const STOCKS: Stock[] = [
 	},
 	{
 		name: "Lockheed Martin Cooperation",
+		outboundHref: "https://www.nordnet.dk/aktier/kurser/lockheed-martin-lmt-xnas",
 		video: PlaneVideo,
 		symbol: "LMT",
 		description: "The world's largest defense company and the U.S. government's biggest contractor. The company has become a leader in advanced fighter planes, high-tech missiles, and cutting-edge electronics.",
@@ -99,6 +104,7 @@ export const STOCKS: Stock[] = [
 	{
 		name: "Meta Platforms, Inc.",
 		symbol: "META",
+		outboundHref: "https://www.nordnet.dk/aktier/kurser/meta-platforms-a-meta-xnas",
 		description: "Owner of multiple social media platforms, i.e. Facebook, Instagram and Snapchat.",
 		priceDelta: 1.73,
 		impacts: [
@@ -134,6 +140,7 @@ export const STOCKS: Stock[] = [
 	},
 	{
 		name: "Philip Morris International Inc.",
+		outboundHref: "https://www.nordnet.dk/aktier/kurser/philip-morris-pm-xnas",
 		symbol: "PM",
 		video: CigaretteVideo,
 		description: "Tbacco company, with products sold in over 180 countries. Marlboro is PMI’s most recognized brand.",

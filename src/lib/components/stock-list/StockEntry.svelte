@@ -2,6 +2,7 @@
 	import TrendingUp from '@iconify-svelte/boxicons/trending-up';
 	import TrendingDown from '@iconify-svelte/boxicons/trending-down';
 	import ChevronDown from '@iconify-svelte/boxicons/chevron-down';
+	import Lock from '@iconify-svelte/boxicons/lock';
 	import Video from '@iconify-svelte/boxicons/video';
 
 	import {
@@ -11,6 +12,7 @@
 		type Impact,
 		type Stock
 	} from '$lib/stock';
+	import Button from '../button/Button.svelte';
 
 	const FORCE_WAIT_DURATION_SECS = 10;
 
@@ -122,7 +124,7 @@
 		<div
 			class="absolute top-8 right-16 flex w-fit flex-col items-end gap-4 text-sm font-semibold transition-colors group-hover:text-text-light"
 		>
-			<p>{getEthicsText(stock)} ({ethicsRating.toFixed(2)})</p>
+			<p>{getEthicsText(ethicsRating)} ({ethicsRating.toFixed(2)})</p>
 			{@render ethicsMeter(ethicsRating)}
 		</div>
 
@@ -139,17 +141,14 @@
 	</button>
 
 	<div class="px-16 pb-8">
-		<a
-			aria-disabled={disabled}
-			class="buy-button flex w-fit bg-foreground/10 px-8 py-2 transition-colors group-hover:not-aria-disabled:bg-foreground group-hover:not-aria-disabled:text-background"
-			href="/"
-		>
+		<Button {disabled}>
 			{#if hovered && disabled}
+				<Lock class="size-5" />
 				Buy ({secondsLeft}s)
 			{:else}
 				Buy
 			{/if}
-		</a>
+		</Button>
 	</div>
 </li>
 
@@ -195,42 +194,3 @@
 		></div>
 	</div>
 {/snippet}
-
-<style>
-	@keyframes fill {
-		from {
-			width: 100%;
-		}
-		to {
-			width: 0%;
-		}
-	}
-
-	@keyframes hide {
-		from {
-			opacity: 100%;
-		}
-		to {
-			opacity: 0%;
-		}
-	}
-
-	#main:hover .buy-button {
-		position: relative;
-
-		&::after {
-			content: '';
-			height: 2px;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			z-index: 100;
-
-			background: var(--color-zinc-200);
-
-			animation:
-				10s linear 0s fill forwards,
-				200ms linear 10s hide forwards;
-		}
-	}
-</style>

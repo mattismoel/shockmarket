@@ -8,9 +8,13 @@
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
-<header class="bg-linear-to-b from-black/80">
+<header class="fixed top-0 left-0 w-full bg-linear-to-b from-black/80">
 	<nav class="flex items-center justify-between px-8">
-		<a href="/" class="font-heading font-bold text-text-light">SHOCK MARKET</a>
+		<a href="/" class="py-6 font-heading font-bold text-text-light">SHOCK MARKET</a>
+
+		<ul>
+			{@render entry('/stocks', 'Stocks')}
+		</ul>
 	</nav>
 </header>
 

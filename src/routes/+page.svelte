@@ -1,34 +1,24 @@
 <script lang="ts">
-	import StockList from '$lib/components/stock-list/StockList.svelte';
-	import { STOCKS, type Stock } from '$lib/stock';
-
-	let hoveredStock = $state<Stock>();
+	import Button from '$lib/components/button/Button.svelte';
+	import SurgeryVideo from '$lib/videos/Smoking.webm';
 </script>
 
-<div class="mx-auto max-w-3xl py-32">
-	{#if hoveredStock?.video}
-		<video
-			class="pointer-events-none fixed top-0 left-0 -z-10 h-svh w-full object-cover"
-			src={hoveredStock?.video}
-			autoplay
-			muted
-			loop
-		>
-			<track kind="captions" />
-		</video>
-	{/if}
-	<main>
-		<div class="fixed bottom-0 left-0 w-full">
-			<header class="mb-16 px-16 text-shadow-md">
-				<h1 class="mb-4 font-heading text-6xl font-bold text-text-light">Trending Stocks</h1>
-				<p>These are the currently most popular, and projected to be successful stocks.</p>
-			</header>
-
-			<div class="max-h-84 w-full overflow-scroll">
-				<StockList stocks={STOCKS} bind:hoveredStock />
-			</div>
+<header class="flex min-h-svh items-center justify-center">
+	<video
+		src={SurgeryVideo}
+		class="fixed top-0 left-0 -z-10 h-full w-full brightness-80"
+		autoplay
+		muted
+	></video>
+	<div class="flex h-full max-w-md flex-col items-center justify-center gap-8">
+		<div>
+			<h1 class="mb-2 font-heading text-4xl font-bold text-text-light">SHOCK MARKET</h1>
+			<p class="text-text max-w-sm text-xl leading-relaxed italic">
+				"If you dishonour the beaver by taking too much, it will find other places to live. If you
+				waste the grain, you will starve."
+			</p>
 		</div>
 
-		<div class="fixed inset-0 bottom-0 -z-10 bg-linear-to-t from-black"></div>
-	</main>
-</div>
+		<Button href="/stocks" class="w-full">Buy Stocks</Button>
+	</div>
+</header>

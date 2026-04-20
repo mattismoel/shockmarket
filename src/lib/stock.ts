@@ -177,8 +177,7 @@ export const calculateImpactRating = (impact: Impact): number => {
 	return ((impact.climate ?? 0) + (impact.health ?? 0) + (impact.rights ?? 0)) / activeCount
 }
 
-export const getEthicsText = (stock: Stock) => {
-	const rating = calculateEthicsRating(stock)
+export const getEthicsText = (rating: number) => {
 	const normalisedRating = (rating * 0.5) + 0.5
 
 	return RATINGS[Math.floor(normalisedRating * RATINGS.length)]

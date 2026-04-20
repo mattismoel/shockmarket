@@ -17,11 +17,7 @@ const config = {
 				environment: undefined,
 				persist: undefined
 			},
-			fallback: 'plaintext',
-			routes: {
-				include: ['/*'],
-				exclude: ['<all>']
-			}
+			fallback: 'plaintext'
 		})
 		// paths: {
 		// 	base: process.argv.includes('dev') ? '' : process.env.BASE_PATH

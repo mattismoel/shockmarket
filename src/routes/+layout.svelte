@@ -13,7 +13,7 @@
 		<a href="/" class="py-6 font-heading font-bold text-text-light">SHOCK MARKET</a>
 
 		<ul>
-			{@render entry('/stocks', 'Stocks')}
+			{@render entry('/stocks', 'Trending')}
 		</ul>
 	</nav>
 </header>

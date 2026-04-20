@@ -18,8 +18,7 @@
 					SHOCK MARKET
 				</h1>
 				<p class="text-lg">
-					Every stock has a story. Welcome to Shock Market, the ethically critical stock
-					trading-site.
+					Every stock has a story. Welcome to the ethically critical stock trading platform.
 				</p>
 			</div>
 

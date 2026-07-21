@@ -3,8 +3,6 @@
 	import {
 		calculateEthicsRating,
 		calculateImpactRating,
-		getEthicsText,
-		normaliseRating,
 		type Impact,
 		type Stock
 	} from "$lib/stock";
@@ -12,6 +10,7 @@
 	import { signNumber } from "$lib/string";
 	import { onMount } from "svelte";
 	import EthicsMeter from "./EthicsMeter.svelte";
+	import { fade } from "svelte/transition";
 
 	const WAIT_DURATION_SECS = 15;
 
@@ -83,32 +82,32 @@
 	onmouseleave={handleBlur}
 	onfocus={handleHover}
 	onblur={handleBlur}
-	class="w-full group hover:bg-white/10 transition-[background,backdrop-filter] duration-100 hover:backdrop-blur-2xl"
+	class="group w-full transition-[background,backdrop-filter] duration-100 hover:bg-white/10 hover:backdrop-blur-2xl"
 >
-	<button onclick={onToggle} class="text-left py-8 mx-responsive grid text-white">
-		<div class="flex flex-col mb-4">
+	<button onclick={onToggle} class="mx-responsive grid py-8 text-left text-white">
+		<div class="mb-4 flex flex-col">
 			<div class="flex gap-4">
 				<span
-					class="text-white/50 transition-colors group-hover:text-white font-black w-full text-2xl flex gap-2 font-heading"
+					class="flex w-full gap-2 font-heading text-2xl font-black text-white/50 transition-colors group-hover:text-white"
 				>
 					{stock.companyName} [{stock.ticker}]
 				</span>
 
 				<div class="flex items-center gap-2">
 					{#if isChangePositive}
-						<span class="size-8 iconify boxicons--trending-up text-green-500"></span>
+						<span class="iconify size-8 text-green-500 boxicons--trending-up"></span>
 					{:else}
-						<span class="size-8 iconify boxicons--trending-down text-red-500"></span>
+						<span class="iconify size-8 text-red-500 boxicons--trending-down"></span>
 					{/if}
 					<span>{signNumber(stock.changePct)}%</span>
 				</div>
 			</div>
 		</div>
 
-		<div class="text-white/50 group-hover:text-white transition-colors">
+		<div class="text-white/50 transition-colors group-hover:text-white">
 			<p
 				class={[
-					"overflow-hidden mb-8 transition-[height,margin-top]",
+					"mb-8 overflow-hidden transition-[height,margin-top]",
 					expanded ? "mt-4" : "line-clamp-1"
 				]}
 			>
@@ -117,7 +116,7 @@
 
 			<div
 				class={[
-					"gap-8 grid overflow-hidden transition-[margin-bottom,height,opacity]",
+					"grid gap-8 overflow-hidden transition-[margin-bottom,height,opacity]",
 					expanded ? "mb-8 opacity-100" : "opacity-0"
 				]}
 				bind:this={impactContainer}
@@ -142,12 +141,12 @@
 			href={stock.outboundHref}
 			aria-disabled={disabled ? "true" : "false"}
 			class={[
-				"h-fit relative min-w-full sm:min-w-48 sm:w-fit inline-flex items-center justify-center bg-white text-black font-medium px-8 py-2 gap-2 transition-colors",
-				"aria-disabled:text-white/50 aria-disabled:bg-white/10 aria-disabled:pointer-events-none"
+				"relative inline-flex h-fit min-w-full items-center justify-center gap-2 bg-white px-8 py-2 font-medium text-black transition-colors sm:w-fit sm:min-w-48",
+				"aria-disabled:pointer-events-none aria-disabled:bg-white/10 aria-disabled:text-white/50"
 			]}
 		>
 			{#if disabled}
-				<span class="iconify boxicons--lock transition-opacity"> </span>
+				<span class="iconify transition-opacity boxicons--lock"> </span>
 			{/if}
 
 			{#if disabled && expanded}
@@ -159,7 +158,7 @@
 			<div
 				style="--duration: {WAIT_DURATION_SECS}s"
 				class={[
-					"transition-[opacity,width] absolute w-0 bottom-0 left-0 h-0.5 bg-white/50",
+					"absolute bottom-0 left-0 h-0.5 w-0 bg-white/50 transition-[opacity,width]",
 					hovered ? "opacity-100" : "opacity-0"
 				]}
 				class:progress={expanded}
@@ -168,7 +167,7 @@
 
 		<p
 			class={[
-				"size-8 iconify flex justify-center w-full boxicons--chevron-down transition-[rotate]",
+				"iconify flex size-8 w-full justify-center text-white/50 transition-[rotate,color] boxicons--chevron-down group-hover:text-white",
 				expanded && "rotate-180"
 			]}
 		></p>
@@ -176,30 +175,34 @@
 </li>
 
 {#snippet impactList(title: string, impacts: Impact[], emptyText: string)}
+	{@const delay = 300}
+	{@const interval = 200}
 	<div>
-		<h3 class="font-bold mb-2 font-heading">{title}</h3>
+		<h3 class="mb-2 font-heading font-bold">{title}</h3>
 
 		{#if impacts.length}
-			<ul class="list-disc list-inside text-white/75">
-				{#each impacts as { text, sources }}
-					<li>
-						<span class="relative">
-							{text}
-							{#if sources && sources.length > 0}
-								<ol
-									class="absolute top-2 right-0 flex gap-0.5 text-xs -translate-y-1/2 translate-x-full"
-								>
-									{#each sources as source, i}
-										<li><a href={source} class="hover:underline">[{i + 1}]</a></li>
-									{/each}
-								</ol>
-							{/if}
-						</span>
-					</li>
+			<ul class="list-inside list-disc text-white/75">
+				{#each impacts as { text, sources }, i (text)}
+					{#if impacts.length === 1 || expanded}
+						<li transition:fade={{ duration: 300, delay: delay + i * interval }}>
+							<span class="relative">
+								{text}
+								{#if sources && sources.length > 0}
+									<ol
+										class="absolute top-2 right-0 flex translate-x-full -translate-y-1/2 gap-0.5 text-xs"
+									>
+										{#each sources as source, i}
+											<li><a href={source} class="hover:underline">[{i + 1}]</a></li>
+										{/each}
+									</ol>
+								{/if}
+							</span>
+						</li>
+					{/if}
 				{/each}
 			</ul>
 		{:else}
-			<p class="italic text-white/75">{emptyText}</p>
+			<p class="text-white/75 italic">{emptyText}</p>
 		{/if}
 	</div>
 {/snippet}

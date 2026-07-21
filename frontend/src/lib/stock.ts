@@ -89,6 +89,14 @@ export const calculateImpactRating = (impact: Impact) => {
 
 }
 
+export const getImpactRatings = ({ impacts }: Stock) => {
+  return {
+    climate: calculateAverage(...impacts.map(impact => impact.climateRating ?? 0)),
+    health: calculateAverage(...impacts.map(impact => impact.healthRating ?? 0)),
+    rights: calculateAverage(...impacts.map(impact => impact.rightsRating ?? 0)),
+  }
+}
+
 export const getEthicsText = (rating: number) => {
   const normalisedRating = normaliseRating(rating)
   return RATINGS[Math.floor(normalisedRating * RATINGS.length)]

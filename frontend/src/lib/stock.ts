@@ -1,6 +1,10 @@
 import z from "zod"
+import { calculateAverage } from "./math";
 import { idSchema } from "./base";
 import { createFileUrl, pbBaseFieldsSchema, pbIdSchema } from "./pocketbase";
+
+const RATINGS: string[] = ["Extremely Unethical", "Very Unethical", "Poor", "Neutral", "Good", "Very Ethical", "Extremely Ethical"]
+
 const impactSchema = z.object({
   id: idSchema,
   text: z.string().nonempty(),
@@ -62,4 +66,37 @@ export const mapPBStock = (record: PBStock): Stock => {
     video: record.video ? createFileUrl("stocks", record.id, record.video) : undefined,
     impacts: record.expand.impacts,
   })
+}
+
+export const calculateEthicsRating = ({ impacts }: Stock) => {
+  const impactRatings = impacts.map(impact => calculateImpactRating(impact))
+
+  let impactSum = 0.0
+
+  impactRatings.forEach(rating => impactSum += rating)
+
+  return impactSum / impacts.length
+}
+
+
+
+export const calculateImpactRating = (impact: Impact) => {
+  const activeCount = (impact.climateRating ? 1 : 0) + (impact.healthRating ? 1 : 0) + (impact.rightsRating ? 1 : 0)
+
+  if (activeCount === 0) return 0.0
+
+  return calculateAverage(impact.climateRating ?? 0, impact.healthRating ?? 0, impact.rightsRating ?? 0)
+
+}
+
+export const getEthicsText = (rating: number) => {
+  const normalisedRating = normaliseRating(rating)
+  return RATINGS[Math.floor(normalisedRating * RATINGS.length)]
+}
+
+/**
+ * @description Returns the normalised ethics rating, i.e. converting it from the interval [-1.0, 1.0] to [0.0, 1.0]
+ */
+export const normaliseRating = (rating: number) => {
+  return (rating * 0.5) + 0.5
 }

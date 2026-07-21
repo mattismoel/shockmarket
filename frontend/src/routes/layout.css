@@ -4,6 +4,10 @@
 
 @plugin '@tailwindcss/typography';
 
+@plugin "@iconify/tailwind4" {
+  prefixes: boxicons;
+}
+
 :root {
   --max-width: 50em;
   --content-padding: 2rem;

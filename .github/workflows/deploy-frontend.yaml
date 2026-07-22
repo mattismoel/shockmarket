@@ -41,6 +41,6 @@ jobs:
         with:
           context: ./frontend
           push: true
-          tags:
+          tags: |
             ${{ env.REGISTRY }}/${{ github.actor }}/${{ github.event.repository.name }}/${{ env.PACKAGE_NAME }}:${{ github.ref_name }}
             ${{ env.REGISTRY }}/${{ github.actor }}/${{ github.event.repository.name }}/${{ env.PACKAGE_NAME }}:${{ github.sha }}

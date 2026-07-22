@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Stock } from "$lib/stock";
-	import { onMount } from "svelte";
 	import StockEntry from "./StockEntry.svelte";
 	import { isTouchDevice } from "$lib/media";
 

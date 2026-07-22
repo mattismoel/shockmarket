@@ -2,15 +2,25 @@ services:
   frontend:
     image: ghcr.io/mattismoel/shockmarket/frontend:main
     ports:
-      - 5173:5173
+      - 3000:3000
+    networks:
+      - proxy
 
   backend:
     image: ghcr.io/mattismoel/shockmarket/backend:main
     ports:
       - 8080:8080
     volumes:
-      - ./backend/pb/pb_data:/pb/pb_data
-      - ./backend/pb/pb_migrations:/pb/pb_migrations
+      - pb_data:/pb/pb_data
+      - pb_migrations:/pb/pb_migrations
+    networks:
+      - proxy
 
 volumes:
   pb_data:
+  pb_migrations:
+
+networks:
+  proxy:
+    name: proxy
+    external: true

@@ -13,7 +13,13 @@
 	});
 </script>
 
-<main>
+<main class="relative">
+	<p
+		class="pointer-events-none absolute right-8 bottom-8 z-100 max-w-sm text-right text-[0.6rem] leading-relaxed text-white/20"
+	>
+		All data is made-up solely for the purpose of art, and are not to be taken as fact. No numbers
+		are pulled from the actual stock exchange market.
+	</p>
 	<div class="fixed -z-50 h-full w-full">
 		<div
 			class="pointer-events-none absolute bottom-0 left-0 z-10 h-2/3 w-full bg-linear-to-t from-black"

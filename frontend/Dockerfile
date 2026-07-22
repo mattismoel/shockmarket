@@ -11,7 +11,7 @@ COPY --from=install /app/package*.json ./
 COPY . .
 
 ENV PUBLIC_POCKETBASE_PUBLIC_URL=https://api.shockmarket.mattismoel.dev
-ENV POCKETBASE_URL=http://backend:8080
+ENV PUBLIC_POCKETBASE_URL=http://backend:8080
 
 RUN npm run build
 RUN npm ci --omit dev

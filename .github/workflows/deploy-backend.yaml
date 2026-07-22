@@ -7,15 +7,15 @@ env:
 on:
   pull_request:
     branches: ["main"]
-    paths:
-      - "backend/**"
-      - ".github/workflows/**"
+    # paths:
+    #   - "backend/**"
+    #   - ".github/workflows/**"
 
   push:
     branches: ["main"]
-    paths:
-      - "backend/**"
-      - ".github/workflows/**"
+    # paths:
+    #   - "backend/**"
+    #   - ".github/workflows/**"
 
 jobs:
   publish:

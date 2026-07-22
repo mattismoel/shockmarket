@@ -84,93 +84,95 @@
 	onblur={handleBlur}
 	class="group w-full transition-[background,backdrop-filter] duration-100 hover:bg-white/10 hover:backdrop-blur-2xl"
 >
-	<button onclick={onToggle} class="mx-responsive grid py-8 text-left text-white">
-		<div class="mb-4 flex flex-col">
-			<div class="flex gap-4">
-				<span
-					class="flex w-full gap-2 font-heading text-2xl font-black text-white/50 transition-colors group-hover:text-white"
-				>
-					{stock.companyName} [{stock.ticker}]
-				</span>
+	<button onclick={onToggle} class="w-full py-8">
+		<div class="mx-responsive grid text-left text-white">
+			<div class="mb-4 flex flex-col">
+				<div class="flex gap-4">
+					<span
+						class="flex w-full gap-2 font-heading text-2xl font-black text-white/50 transition-colors group-hover:text-white"
+					>
+						{stock.companyName} [{stock.ticker}]
+					</span>
 
-				<div class="flex items-center gap-2">
-					{#if isChangePositive}
-						<span class="iconify size-8 text-green-500 boxicons--trending-up"></span>
-					{:else}
-						<span class="iconify size-8 text-red-500 boxicons--trending-down"></span>
-					{/if}
-					<span>{signNumber(stock.changePct)}%</span>
+					<div class="flex items-center gap-2">
+						{#if isChangePositive}
+							<span class="iconify size-8 text-green-500 boxicons--trending-up"></span>
+						{:else}
+							<span class="iconify size-8 text-red-500 boxicons--trending-down"></span>
+						{/if}
+						<span>{signNumber(stock.changePct)}%</span>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="text-white/50 transition-colors group-hover:text-white">
+			<div class="text-white/50 transition-colors group-hover:text-white">
+				<p
+					class={[
+						"mb-8 overflow-hidden transition-[height,margin-top]",
+						expanded ? "mt-4" : "line-clamp-1"
+					]}
+				>
+					{stock.description}
+				</p>
+
+				<div
+					class={[
+						"grid gap-8 overflow-hidden transition-[margin-bottom,height,opacity]",
+						expanded ? "mb-8 opacity-100" : "opacity-0"
+					]}
+					bind:this={impactContainer}
+					style:height={expanded ? `${impactContainerHeight}px` : "0px"}
+				>
+					<EthicsMeter rating={ethicsRating} active={expanded} />
+
+					{@render impactList(
+						"Positive Impacts",
+						positiveImpacts,
+						"There doesn't seem to be any positive impacts of this stock..."
+					)}
+					{@render impactList(
+						"Negative Impacts",
+						negativeImpacts,
+						"There doesn't seem to be any negative impacts of this stock."
+					)}
+				</div>
+			</div>
+
+			<a
+				href={stock.outboundHref}
+				aria-disabled={disabled ? "true" : "false"}
+				class={[
+					"relative inline-flex h-fit min-w-full items-center justify-center gap-2 bg-white px-8 py-2 font-medium text-black transition-colors sm:w-fit sm:min-w-48",
+					"aria-disabled:pointer-events-none aria-disabled:bg-white/10 aria-disabled:text-white/50"
+				]}
+			>
+				{#if disabled}
+					<span class="iconify transition-opacity boxicons--lock"> </span>
+				{/if}
+
+				{#if disabled && expanded}
+					Buy ({secondsLeft}s)
+				{:else}
+					Buy
+				{/if}
+
+				<div
+					style="--duration: {WAIT_DURATION_SECS}s"
+					class={[
+						"absolute bottom-0 left-0 h-0.5 w-0 bg-white/50 transition-[opacity,width]",
+						hovered ? "opacity-100" : "opacity-0"
+					]}
+					class:progress={expanded}
+				></div>
+			</a>
+
 			<p
 				class={[
-					"mb-8 overflow-hidden transition-[height,margin-top]",
-					expanded ? "mt-4" : "line-clamp-1"
+					"iconify flex size-8 w-full justify-center text-white/50 transition-[rotate,color] boxicons--chevron-down group-hover:text-white",
+					expanded && "rotate-180"
 				]}
-			>
-				{stock.description}
-			</p>
-
-			<div
-				class={[
-					"grid gap-8 overflow-hidden transition-[margin-bottom,height,opacity]",
-					expanded ? "mb-8 opacity-100" : "opacity-0"
-				]}
-				bind:this={impactContainer}
-				style:height={expanded ? `${impactContainerHeight}px` : "0px"}
-			>
-				<EthicsMeter rating={ethicsRating} active={expanded} />
-
-				{@render impactList(
-					"Positive Impacts",
-					positiveImpacts,
-					"There doesn't seem to be any positive impacts of this stock..."
-				)}
-				{@render impactList(
-					"Negative Impacts",
-					negativeImpacts,
-					"There doesn't seem to be any negative impacts of this stock."
-				)}
-			</div>
+			></p>
 		</div>
-
-		<a
-			href={stock.outboundHref}
-			aria-disabled={disabled ? "true" : "false"}
-			class={[
-				"relative inline-flex h-fit min-w-full items-center justify-center gap-2 bg-white px-8 py-2 font-medium text-black transition-colors sm:w-fit sm:min-w-48",
-				"aria-disabled:pointer-events-none aria-disabled:bg-white/10 aria-disabled:text-white/50"
-			]}
-		>
-			{#if disabled}
-				<span class="iconify transition-opacity boxicons--lock"> </span>
-			{/if}
-
-			{#if disabled && expanded}
-				Buy ({secondsLeft}s)
-			{:else}
-				Buy
-			{/if}
-
-			<div
-				style="--duration: {WAIT_DURATION_SECS}s"
-				class={[
-					"absolute bottom-0 left-0 h-0.5 w-0 bg-white/50 transition-[opacity,width]",
-					hovered ? "opacity-100" : "opacity-0"
-				]}
-				class:progress={expanded}
-			></div>
-		</a>
-
-		<p
-			class={[
-				"iconify flex size-8 w-full justify-center text-white/50 transition-[rotate,color] boxicons--chevron-down group-hover:text-white",
-				expanded && "rotate-180"
-			]}
-		></p>
 	</button>
 </li>
 

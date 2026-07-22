@@ -36,35 +36,35 @@
 	});
 </script>
 
-<div class="sm:max-w-64 w-full pt-4">
-	<div class={["w-full min-h-6"]}>
+<div class="w-full pt-4 sm:max-w-64">
+	<div class={["min-h-6 w-full"]}>
 		<!-- Bar -->
 		<div
 			class={[
-				"relative left-0 top-0 -translate-y-1/2 h-1 rounded-full bg-linear-to-r from-red-500 via-yellow-500 to-green-500"
+				"relative top-0 left-0 h-1 -translate-y-1/2 rounded-full bg-linear-to-r from-red-500 via-yellow-500 to-green-500"
 			]}
 		>
 			<!-- Center Marker -->
 			<div
 				class={[
-					"z-50 w-0.5 h-full top-0 absolute left-1/2 bg-black/50",
+					"absolute top-0 left-1/2 z-50 h-full w-0.5 bg-black/50",
 					active ? "opacity-100" : "opacity-0"
 				]}
 			></div>
 
 			<!-- Marker -->
 			<div
-				class="size-2 absolute bg-white rounded-full top-1/2 -translate-y-1/2"
+				class="absolute top-1/2 size-2 -translate-y-1/2 rounded-full bg-white"
 				style:left="calc({normalised} * 100%)"
 			>
-				<span class="text-xs absolute top-0 -translate-y-full left-1/2 text-white -translate-x-1/2">
+				<span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full text-xs text-white">
 					{value.current.toFixed(2)}
 				</span>
 			</div>
 
 			<div
 				class={[
-					"absolute -bottom-2 translate-y-full w-full flex transition-[opacity,height] text-white/50 font-medium justify-between text-xs",
+					"absolute -bottom-2 flex w-full translate-y-full justify-between text-xs font-medium text-white/50 transition-[opacity,height]",
 					active ? "h-4 opacity-100" : "h-0 opacity-50"
 				]}
 			>

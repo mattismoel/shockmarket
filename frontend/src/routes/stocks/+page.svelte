@@ -1,5 +1,6 @@
 <script lang="ts">
 	import StockList from "$lib/components/StockList.svelte";
+	import Title from "$lib/components/Title.svelte";
 	import { type Stock } from "$lib/stock";
 	import { listStocks } from "$lib/stock.remote";
 	import { onMount } from "svelte";
@@ -40,7 +41,7 @@
 
 	<div class="z-50 flex min-h-svh flex-col justify-end">
 		<header class="mx-responsive mb-8 text-white">
-			<h1 class="mb-4 font-heading text-5xl font-black">Trending Stocks</h1>
+			<Title size="lg">Trending Stocks</Title>
 			<p class="text-white/75">
 				These are the the currently most popular, and projected to be successful stocks.
 			</p>

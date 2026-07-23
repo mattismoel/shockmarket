@@ -18,6 +18,8 @@
 @theme {
   --font-sans: "Poppins", sans;
   --font-heading: "Archivo Black"
+  --color-text: var(--color-zinc-300);
+  --color-text-light: var(--color-zinc-50);
 }
 
 @utility mx-responsive {

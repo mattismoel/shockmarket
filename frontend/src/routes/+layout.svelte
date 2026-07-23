@@ -8,7 +8,10 @@
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 {@render navbar()}
-{@render children()}
+
+<div class="grid min-h-svh">
+	{@render children()}
+</div>
 
 {#snippet navbar()}
 	<nav class="fixed z-100 flex w-full items-center justify-between px-8 text-white">

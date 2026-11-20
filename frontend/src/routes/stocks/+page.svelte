@@ -15,6 +15,13 @@
 </script>
 
 <main class="relative">
+	<!-- Preload all videos in the background -->
+	<div class="pointer-events-none fixed -z-50 h-0 w-0 overflow-hidden" aria-hidden="true">
+		{#each stocks.filter((stock) => stock.video) as stock}
+			<video src={stock.video} preload="" autoplay muted></video>
+		{/each}
+	</div>
+
 	<div class="fixed -z-50 h-full w-full">
 		<div
 			class="pointer-events-none absolute bottom-0 left-0 z-10 h-2/3 w-full bg-linear-to-t from-black"
@@ -23,6 +30,7 @@
 		{#if hoveredStock?.video}
 			<video
 				autoplay
+				preload="auto"
 				muted
 				loop
 				src={hoveredStock?.video}

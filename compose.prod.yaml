@@ -1,22 +1,16 @@
 services:
   frontend:
-    image: ghcr.io/mattismoel/shockmarket/frontend:main
-    networks:
-      - proxy
+    build:
+      context: ./frontend
 
   backend:
-    image: ghcr.io/mattismoel/shockmarket/backend:main
+    build:
+      context: ./backend
+
     volumes:
       - pb_data:/pb/pb_data
       - pb_migrations:/pb/pb_migrations
-    networks:
-      - proxy
 
 volumes:
   pb_data:
   pb_migrations:
-
-networks:
-  proxy:
-    name: proxy
-    external: true
